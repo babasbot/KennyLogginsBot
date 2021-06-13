@@ -4,5 +4,8 @@
   "main": "index.js",
   "scripts": {},
   "author": "Luis Alfredo Lorenzo",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "telegraf": "^4.3.0"
+  }
 }
