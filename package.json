@@ -2,7 +2,9 @@
   "name": "kenny-loggins-bot",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "bot": "node index.js"
+  },
   "author": "Luis Alfredo Lorenzo",
   "license": "MIT",
   "dependencies": {
