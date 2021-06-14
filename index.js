@@ -1,32 +1,58 @@
 const { Telegraf } = require("telegraf");
-const axios = require("axios");
-const { camelizeKeys } = require("humps");
+const coingecko = require("./src/coinGecko");
 
 const bot = new Telegraf(process.env.TELEGRAM_API_KEY);
-const coinGecko = axios.create({ baseURL: "https://api.coingecko.com" });
 
 const donateCommand = (ctx) => {
   message =
     "If you find this bot helpful, please consider donating to 0xcD1CAe9313DEd1BEa9f1F02450dE30601b3A6912. <3";
 
-  ctx.telegram.sendMessage(ctx.message.chat.id, message);
+  ctx.reply(message);
 };
 
-const titanCommand = async (ctx) => {
-  const response = await coinGecko.get("/api/v3/simple/price", {
-    params: {
-      ids: "iron-titanium-token",
-      vs_currencies: "usd",
-    },
-  });
+const currentPrice = async (ctx, coinId) => {
+  const data = await coingecko.coins(coinId);
 
-  const price = camelizeKeys(response.data).ironTitaniumToken.usd;
+  const symbol = data.symbol;
+  const price = data.marketData.currentPrice.usd;
 
-  ctx.telegram.sendMessage(ctx.message.chat.id, `1 TITAN = ${price} US$`);
+  const message = `1 ${symbol.toUpperCase()} = ${price} US$`;
+
+  ctx.reply(message);
 };
 
-bot.command("donate", donateCommand);
+const coins = [
+  {
+    id: "iron-titanium-token",
+    symbol: "titan",
+  },
+  {
+    id: "ethereum",
+    symbol: "eth",
+  },
+  {
+    id: "bitcoin",
+    symbol: "btc",
+  },
+  {
+    id: "binance-coin",
+    symbol: "bnb",
+  },
+  {
+    id: "diamond-dnd",
+    symbol: "dnd",
+  },
+  {
+    id: "steel",
+    symbol: "steel",
+  },
+];
+
 bot.command("start", donateCommand);
-bot.command("titan", titanCommand);
+bot.command("donate", donateCommand);
+
+coins.forEach((coin) => {
+  bot.command(coin.symbol, (ctx) => currentPrice(ctx, coin.id));
+});
 
 bot.launch();
