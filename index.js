@@ -46,6 +46,10 @@ const coins = [
     id: "steel",
     symbol: "steel",
   },
+  {
+    id: "waultswap-polygon",
+    symbol: "wexpoly",
+  },
 ];
 
 bot.command("start", donateCommand);
