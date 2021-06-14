@@ -1,13 +1,18 @@
 # KennyLoggingsBot
 
-Kenny Loggings fetches the price of your favorite cryptocurrencies on Telegram.
+Kenny Loggings fetches the price of your favorite cryptocurrencies from CoinGecko.
 
 The bot is available on https://t.me/KennyLogginsBot.
 
 ## Commands
 
-- `/titan`
+- `/bnb`
+- `/btc`
+- `/dnd`
 - `/donate`
+- `/eth`
+- `/steel`
+- `/titan`
 
 ## LICENSE
 
